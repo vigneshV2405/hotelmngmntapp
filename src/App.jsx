@@ -1,11 +1,16 @@
 import logo from './logo.svg';
 import './App.css';
+import Navbar from './shared/Navbar';
+import { Provider } from 'react-redux';
+import { store } from './store';
 
 function App() {
   return (
-    <div>
-      <h1>dfgh</h1>
-    </div>
+    <Provider store={store}>
+      <div>
+        <Navbar></Navbar>
+      </div>
+    </Provider>
   );
 }
 
