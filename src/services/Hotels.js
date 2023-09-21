@@ -4,7 +4,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 // Define a service using a base URL and expected endpoints
 export const HotelsApi = createApi({
   reducerPath: 'HotelsApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:4000/hotels' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:4000/hotels/' }),
   endpoints: (builder) => ({
     getallhotels: builder.query({
       query: () => '',
@@ -17,10 +17,19 @@ export const HotelsApi = createApi({
                 body:n
             }
         }
+    }),
+    updateHotel: builder.mutation({
+      query: ({updatedHotel,id})=>{
+        return {
+          url: `${id}`,
+          method:'PUT',
+          body:updatedHotel
+        }
+      }
     })
   }),
 })
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useGetallhotelsQuery , useAddnewHotelMutation } = HotelsApi
+export const { useGetallhotelsQuery , useAddnewHotelMutation , useUpdateHotelMutation } = HotelsApi
