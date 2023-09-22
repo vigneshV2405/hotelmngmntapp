@@ -9,6 +9,9 @@ export const HotelsApi = createApi({
     getallhotels: builder.query({
       query: () => '',
     }),
+    gethotelbyId: builder.query({
+      query: (id)=> `${id}`
+    }),
     addnewHotel: builder.mutation({
         query: (n) => {
             return {
@@ -32,4 +35,4 @@ export const HotelsApi = createApi({
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useGetallhotelsQuery , useAddnewHotelMutation , useUpdateHotelMutation } = HotelsApi
+export const { useGetallhotelsQuery , useAddnewHotelMutation , useUpdateHotelMutation  , useGethotelbyIdQuery } = HotelsApi

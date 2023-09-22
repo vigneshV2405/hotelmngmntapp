@@ -3,6 +3,7 @@ import './App.css';
 import Navbar from './shared/Navbar';
 import { Provider } from 'react-redux';
 import { store } from './store';
+import Hotels from './features/hotels/Hotels';
 
 function App() {
   return (

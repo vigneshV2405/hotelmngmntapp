@@ -7,12 +7,22 @@ import '../node_modules/bootstrap/dist/js/bootstrap.min';
 import Admindashboard from './features/admindashboard/Admindashboard';
 import Addhotel from './features/admindashboard/Addhotel';
 import Addrooms from './features/admindashboard/Addrooms';
+import Hotels from './features/hotels/Hotels';
+import Hoteldetails from './features/hotels/Hoteldetails';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App></App>,
     children:[
+      {
+        path:'',
+        element:<Hotels></Hotels>
+      },
+      {
+        path:'/details/:id',
+        element:<Hoteldetails></Hoteldetails>
+      },
       {
         path:'/admindashboard',
         element:<Admindashboard></Admindashboard>,

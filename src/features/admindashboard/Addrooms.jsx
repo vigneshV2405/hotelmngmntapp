@@ -12,7 +12,13 @@ function Addrooms() {
 
     function add(){
         var rooms = []
-        for(var i=0;i<=roomCount-1;i++){
+        var count = 0
+        JSON.parse(selectedHotel).rooms.forEach((room)=>{
+            if(room.roomType===selectedRoomtype){
+                count++
+            }
+        })
+        for(var i=+count;i<=+count+(+roomCount)-1;i++){
             var newRoom = {
                 status:'open',
                 roomType:selectedRoomtype,
