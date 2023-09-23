@@ -35,4 +35,10 @@ export const HotelsApi = createApi({
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useGetallhotelsQuery , useAddnewHotelMutation , useUpdateHotelMutation  , useGethotelbyIdQuery } = HotelsApi
+export const {
+  useGetallhotelsQuery,
+  useAddnewHotelMutation,
+  useUpdateHotelMutation,
+  useGethotelbyIdQuery,
+  useLazyGetallhotelsQuery
+} = HotelsApi

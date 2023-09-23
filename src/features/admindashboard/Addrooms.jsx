@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import { useGetallhotelsQuery, useUpdateHotelMutation } from '../../services/Hotels'
+import { useGetallhotelsQuery, useLazyGetallhotelsQuery, useUpdateHotelMutation } from '../../services/Hotels'
 
 function Addrooms() {
     var { data:hotels , isLoading } = useGetallhotelsQuery()
     var [ updateHotel ] = useUpdateHotelMutation()
+    var [ updateAll ] = useLazyGetallhotelsQuery()
 
     var [ selectedHotel , setSelectedhotel ] = useState(null)
     var [ selectedRoomtype , setSelectedroomtype ] = useState(null)
@@ -11,6 +12,12 @@ function Addrooms() {
     var [ roomPrice , setRoomprice ] = useState(0)
 
     function add(){
+        updateAll();
+        var gh = hotels.forEach((hotel)=>{
+            if(hotel.id===selectedHotel.id){
+                setSelectedhotel({...hotel})
+            }
+        })
         var rooms = []
         var count = 0
         JSON.parse(selectedHotel).rooms.forEach((room)=>{
