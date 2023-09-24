@@ -22,11 +22,11 @@ export const HotelsApi = createApi({
         }
     }),
     updateHotel: builder.mutation({
-      query: ({updatedHotel,id})=>{
+      query: (uh)=>{
         return {
-          url: `${id}`,
+          url: `${uh.id}`,
           method:'PUT',
-          body:updatedHotel
+          body:uh
         }
       }
     })

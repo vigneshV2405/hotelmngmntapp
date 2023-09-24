@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { useGetallhotelsQuery, useLazyGetallhotelsQuery, useUpdateHotelMutation } from '../../services/Hotels'
+import { useGetallhotelsQuery, useLazyGetallhotelsQuery, useUpdateHotelMutation } from '../../services/Hotels';
+import axios from 'axios';
 
 function Addrooms() {
     var { data:hotels , isLoading } = useGetallhotelsQuery()
     var [ updateHotel ] = useUpdateHotelMutation()
-    var [ updateAll ] = useLazyGetallhotelsQuery()
 
     var [ selectedHotel , setSelectedhotel ] = useState(null)
     var [ selectedRoomtype , setSelectedroomtype ] = useState(null)
@@ -12,32 +12,32 @@ function Addrooms() {
     var [ roomPrice , setRoomprice ] = useState(0)
 
     function add(){
-        updateAll();
-        var gh = hotels.forEach((hotel)=>{
-            if(hotel.id===selectedHotel.id){
-                setSelectedhotel({...hotel})
-            }
-        })
         var rooms = []
-        var count = 0
-        JSON.parse(selectedHotel).rooms.forEach((room)=>{
-            if(room.roomType===selectedRoomtype){
-                count++
+        axios.get(`http://localhost:4000/hotels/${JSON.parse(selectedHotel).id}`).then((resp)=>{
+            rooms = [...resp.data.rooms]
+            var count = 0
+            rooms.forEach((room)=>{
+                if(room.roomType===selectedRoomtype){
+                    count++
+                }
+            })
+            for(var i=+count;i<=+count+(+roomCount)-1;i++){
+                var newRoom = {
+                    status:'open',
+                    roomType:selectedRoomtype,
+                    roomPrice,
+                    patients:[],
+                    roomId:`${selectedRoomtype}${i+1}`
+                }
+                rooms.push(newRoom)
             }
-        })
-        for(var i=+count;i<=+count+(+roomCount)-1;i++){
-            var newRoom = {
-                status:'open',
-                roomType:selectedRoomtype,
-                roomPrice,
-                patients:[],
-                roomId:`${selectedRoomtype}${i+1}`
-            }
-            rooms.push(newRoom)
-        }
-        var updatedHotel = {...JSON.parse(selectedHotel),rooms:[...JSON.parse(selectedHotel).rooms,...rooms]}
-        var id = updatedHotel.id
-        updateHotel({updatedHotel,id})
+            var updatedHotel = {...JSON.parse(selectedHotel),rooms:[...rooms]}
+            console.log(rooms)
+            updateHotel(updatedHotel)
+        })        
+    }
+    function xyz(e){
+        setSelectedhotel(e)
     }
 
   return (
@@ -45,7 +45,7 @@ function Addrooms() {
         <h3>Addrooms</h3>
         {
             !isLoading?
-            <select onChange={(e)=>{setSelectedhotel(e.target.value)}}>
+            <select onChange={(e)=>{xyz(e.target.value)}}>
                 <option disabled selected >select a hotel</option>
                 {
                     hotels.map((hotel)=>{
