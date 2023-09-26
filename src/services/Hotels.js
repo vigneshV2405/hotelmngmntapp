@@ -40,5 +40,6 @@ export const {
   useAddnewHotelMutation,
   useUpdateHotelMutation,
   useGethotelbyIdQuery,
-  useLazyGetallhotelsQuery
+  useLazyGetallhotelsQuery,
+  useLazyGethotelbyIdQuery
 } = HotelsApi
